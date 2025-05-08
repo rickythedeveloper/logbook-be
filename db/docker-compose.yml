@@ -1,0 +1,27 @@
+services:
+  migrate:
+    build:
+      context: ./dockerfiles
+      dockerfile: migrate.Dockerfile
+    working_dir: /liquibase/changelog
+    command: [
+      "update",
+      "--changelog-file=master.yaml",
+      "--url=jdbc:postgresql://db:5432/postgres",
+      "--username=postgres",
+      "--password=postgres"
+    ]
+    volumes:
+      - ./liquibase/changelog:/liquibase/changelog
+      - ./liquibase/liquibase.docker.properties:/liquibase/liquibase.properties
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
