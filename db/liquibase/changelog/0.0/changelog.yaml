@@ -6,3 +6,10 @@ databaseChangeLog:
         - sqlFile:
             path: initial-schema.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: remove-test-table
+      author: ricky
+      changes:
+        - sqlFile:
+            path: remove-test-table.sql
+            relativeToChangelogFile: true
