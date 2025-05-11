@@ -13,3 +13,11 @@ databaseChangeLog:
         - sqlFile:
             path: remove-test-table.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: add-logbook-entry-table
+      author: ricky
+      splitStatements: false
+      changes:
+        - sqlFile:
+            path: add-logbook-entry-table.sql
+            relativeToChangelogFile: true

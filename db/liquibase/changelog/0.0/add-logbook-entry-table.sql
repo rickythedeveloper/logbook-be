@@ -54,7 +54,7 @@ RETURNS TRIGGER AS $$
 BEGIN
     NEW.updated_at = now();
 RETURN NEW;
-END;
+END
 $$ language 'plpgsql';
 
 CREATE TRIGGER update_pilot_logbook_timestamp
