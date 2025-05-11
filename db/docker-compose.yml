@@ -16,6 +16,24 @@ services:
       - ./liquibase/liquibase.docker.properties:/liquibase/liquibase.properties
     depends_on:
       - db
+  rollback:
+    build:
+      context: ./dockerfiles
+      dockerfile: migrate.Dockerfile
+    working_dir: /liquibase/changelog
+    command: [
+      "rollback-count",
+      "--count=1",
+      "--changelog-file=master.yaml",
+      "--url=jdbc:postgresql://db:5432/postgres",
+      "--username=postgres",
+      "--password=postgres"
+    ]
+    volumes:
+      - ./liquibase/changelog:/liquibase/changelog
+      - ./liquibase/liquibase.docker.properties:/liquibase/liquibase.properties
+    depends_on:
+      - db
 
   db:
     image: postgres:17

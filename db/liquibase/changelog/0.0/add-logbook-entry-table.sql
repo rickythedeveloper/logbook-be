@@ -2,13 +2,8 @@
 
 --changeset ricky:add-logbook-entry-table
 CREATE TYPE operating_capacity_type AS ENUM (
-    'Captain',
-    'First Officer',
-    'Relief Pilot',
-    'Flight Instructor',
-    'Check Airman',
-    'Student Pilot',
-    'Observer'
+    'PIC',
+    'PUT'
 );
 
 CREATE TABLE logbook_entry (
