@@ -1,6 +1,7 @@
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use sqlx::postgres::PgPoolOptions;
-
+use sqlx::postgres::PgSeverity::Log;
+use sqlx::types::uuid::Uuid;
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
@@ -14,15 +15,19 @@ async fn echo(req_body: String) -> impl Responder {
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
+#[derive(sqlx::FromRow)]
+struct LogbookEntry {
+    id: Uuid
+}
 
 async fn test_sql() -> Result<(), sqlx::Error> {
     let pool = PgPoolOptions::new()
         .max_connections(5)
         .connect("postgres://postgres:postgres@localhost:5432/postgres").await?;
 
-    let row: (i64,) = sqlx::query_as("select $1").bind(10_i64).fetch_one(&pool).await?;
+    let row = sqlx::query_as::<_, LogbookEntry>("select * from logbook_entry").fetch_one(&pool).await?;
 
-    println!("{}", row.0);
+    println!("{}", row.id);
 
     Ok(())
 }
