@@ -1,10 +1,10 @@
-use sqlx::types::{chrono::NaiveDateTime, BigDecimal, Uuid};
+use sqlx::types::{BigDecimal, Uuid, chrono::NaiveDateTime};
 
 #[derive(sqlx::Type, Debug)]
 #[sqlx(type_name = "operating_capacity_type")]
 enum OperatingCapacity {
     PIC,
-    PUT
+    PUT,
 }
 
 #[derive(sqlx::FromRow, Debug)]
