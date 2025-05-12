@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Format
-        run: cargo fmt --check
+        run: cd api-server && cargo fmt --check
