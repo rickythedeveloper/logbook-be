@@ -1,9 +1,7 @@
 mod db;
 
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-use sqlx::postgres::PgPoolOptions;
-use sqlx::postgres::PgSeverity::Log;
-use sqlx::types::uuid::Uuid;
+
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
