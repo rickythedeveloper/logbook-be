@@ -3,9 +3,9 @@ mod server;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    db::get_one_logbook_entry().await.unwrap();
+    let database = db::DatabaseImpl {};
 
-    server::start_server().await;
+    server::start_server(database).await;
 
     Ok(())
 }

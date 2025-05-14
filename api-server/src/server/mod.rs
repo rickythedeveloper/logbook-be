@@ -1,5 +1,7 @@
 use actix_web::{App, HttpResponse, HttpServer, Responder, get, post, web};
 
+use crate::db;
+
 #[get("/")]
 async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
@@ -14,7 +16,9 @@ async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
 
-pub async fn start_server() -> std::io::Result<()> {
+pub async fn start_server<D: db::Database>(database: D) -> std::io::Result<()> {
+    println!("Starting server");
+
     HttpServer::new(|| {
         App::new()
             .service(hello)
